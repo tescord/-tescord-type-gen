@@ -8,13 +8,13 @@ interface ExtractedParameter {
 
 // Configuration for type generation
 interface TypeGenerationConfig {
-  tescords: tescord[];
+  tescords: Tescord[];
   outputPath?: string;
 }
 
 // Configuration for component type generation
 interface ComponentTypeGenerationConfig {
-  tescords: tescord[];
+  tescords: Tescord[];
   outputPath?: string;
 }
 
@@ -122,7 +122,7 @@ function deepMerge(target: PlainLocaleData, source: PlainLocaleData): void {
  * Extracts locale data from tescord's cache and converts it to plain data structure
  * This is the key function that processes the actual tescord cache data
  */
-function extractPlainLocaleDataFromtescord(tescord: tescord): PlainLocaleData {
+function extractPlainLocaleDataFromtescord(tescord: Tescord): PlainLocaleData {
   const mergedData: PlainLocaleData = {};
 
   // Process all cached locales from tescord.cache.locales
@@ -214,7 +214,7 @@ function extractParametersFromFunction(func: Function): string {
 /**
  * Generates TypeScript declaration for a single tescord instance
  */
-function generatetescordDeclaration(tescord: tescord, clientIndex?: number): string {
+function generatetescordDeclaration(tescord: Tescord, clientIndex?: number): string {
   const localeData = extractPlainLocaleDataFromtescord(tescord);
   const interfaceContent = processLocaleData(localeData);
   
@@ -247,7 +247,7 @@ const INTERACTION_TYPE_MAP: Record<string, string> = {
 /**
  * Extracts component mappings from tescord's interactions cache
  */
-function extractComponentMappingsFromtescord(tescord: tescord): ComponentMapping {
+function extractComponentMappingsFromtescord(tescord: Tescord): ComponentMapping {
   const componentMap: ComponentMapping = {};
 
   // Process all cached interactions from tescord.cache.interactions
@@ -348,7 +348,7 @@ export function generateComponentTypes(config: ComponentTypeGenerationConfig): s
  * Utility function to create a component type generation configuration
  */
 export function createComponentTypeGenerationConfig(
-  tescords: tescord | tescord[], 
+  tescords: Tescord | Tescord[], 
   outputPath?: string
 ): ComponentTypeGenerationConfig {
   return {
@@ -376,7 +376,7 @@ export async function writeComponentTypes(config: ComponentTypeGenerationConfig)
  * Utility function to create a type generation configuration
  */
 export function createTypeGenerationConfig(
-  tescords: tescord | tescord[], 
+  tescords: Tescord | Tescord[], 
   outputPath?: string
 ): TypeGenerationConfig {
   return {
