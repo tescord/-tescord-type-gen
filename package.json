@@ -1,7 +1,7 @@
 {
   "name": "@tescord/type-gen",
   "version": "0.0.0",
-  "description": "",
+  "description": "Type generator for Tescord",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "private": false,
