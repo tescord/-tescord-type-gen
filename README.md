@@ -1,23 +1,23 @@
-# @tessen/type-gen
+# @tescord/type-gen
 
-A TypeScript type generation module for Tessen localization. This module analyzes Tessen instances and generates TypeScript declarations for type-safe localization usage.
+A TypeScript type generation module for tescord localization. This module analyzes tescord instances and generates TypeScript declarations for type-safe localization usage.
 
 ## Features
 
 - 🔍 **Smart Parameter Detection**: Automatically detects parameters in localization strings
 - 🏷️ **Named Parameters**: Supports both indexed (`{0}`, `{1}`) and named (`{0:user}`, `{1:role}`) parameters
-- 🔗 **Multi-Client Support**: Generate types for multiple Tessen instances
+- 🔗 **Multi-Client Support**: Generate types for multiple tescord instances
 - 📁 **Nested Structures**: Handles nested localization objects
 - 💾 **File Output**: Write generated types directly to TypeScript declaration files
 
 ## Installation
 
 ```bash
-npm install @tessen/type-gen
+npm install @tescord/type-gen
 # or
-pnpm add @tessen/type-gen
+pnpm add @tescord/type-gen
 # or
-yarn add @tessen/type-gen
+yarn add @tescord/type-gen
 ```
 
 ## Usage
@@ -25,11 +25,11 @@ yarn add @tessen/type-gen
 ### Basic Usage
 
 ```typescript
-import { generateLocalizationTypes, createTypeGenerationConfig } from '@tessen/type-gen';
-import { Tessen } from 'tessen';
+import { generateLocalizationTypes, createTypeGenerationConfig } from '@tescord/type-gen';
+import { tescord } from 'tescord';
 
-// Create your Tessen instance
-const tessen = new Tessen({
+// Create your tescord instance
+const tescord = new tescord({
   id: 'my-bot',
   clients: [{
     id: 'main-client',
@@ -39,7 +39,7 @@ const tessen = new Tessen({
 });
 
 // Generate types
-const config = createTypeGenerationConfig(tessen);
+const config = createTypeGenerationConfig(tescord);
 const types = generateLocalizationTypes(config);
 
 console.log(types);
@@ -48,23 +48,23 @@ console.log(types);
 ### Multiple Clients
 
 ```typescript
-import { generateLocalizationTypes, createTypeGenerationConfig } from '@tessen/type-gen';
+import { generateLocalizationTypes, createTypeGenerationConfig } from '@tescord/type-gen';
 
-const config = createTypeGenerationConfig([tessen1, tessen2, tessen3]);
+const config = createTypeGenerationConfig([tescord1, tescord2, tescord3]);
 const types = generateLocalizationTypes(config);
 ```
 
 ### Write to File
 
 ```typescript
-import { writeLocalizationTypes } from '@tessen/type-gen';
+import { writeLocalizationTypes } from '@tescord/type-gen';
 
 // Option 1: Use default output path (process.cwd()/localization.d.ts)
-const config = createTypeGenerationConfig(tessen);
+const config = createTypeGenerationConfig(tescord);
 await writeLocalizationTypes(config);
 
 // Option 2: Specify custom output path in config
-const configWithPath = createTypeGenerationConfig(tessen, './types/localization.d.ts');
+const configWithPath = createTypeGenerationConfig(tescord, './types/localization.d.ts');
 await writeLocalizationTypes(configWithPath);
 ```
 
@@ -92,11 +92,11 @@ Output: () => string
 
 ## Generated Output Example
 
-For a Tessen instance with localization data, the module generates:
+For a tescord instance with localization data, the module generates:
 
 ```typescript
 declare global {
-    namespace Tessen {
+    namespace tescord {
         interface Localization {
             hello: () => string;
             welcome: (username: string) => string;
@@ -118,11 +118,11 @@ declare global {
 
 ## Multi-Client Output
 
-When multiple Tessen instances are provided:
+When multiple tescord instances are provided:
 
 ```typescript
 declare global { // Client 1
-    namespace Tessen {
+    namespace tescord {
         interface Localization {
             hello: () => string;
             world: (exampleParam: string) => string;
@@ -131,7 +131,7 @@ declare global { // Client 1
 }
 
 declare global { // Client 2
-    namespace Tessen {
+    namespace tescord {
         interface Localization {
             secondClientHello: () => string;
         }
@@ -143,19 +143,19 @@ declare global { // Client 2
 
 ### `generateLocalizationTypes(config: TypeGenerationConfig): string`
 
-Generates TypeScript declaration strings from Tessen instances.
+Generates TypeScript declaration strings from tescord instances.
 
 **Parameters:**
-- `config`: Configuration object containing Tessen instances
+- `config`: Configuration object containing tescord instances
 
 **Returns:** Generated TypeScript declaration string
 
-### `createTypeGenerationConfig(tessens: Tessen | Tessen[], outputPath?: string): TypeGenerationConfig`
+### `createTypeGenerationConfig(tescords: tescord | tescord[], outputPath?: string): TypeGenerationConfig`
 
 Creates a configuration object for type generation.
 
 **Parameters:**
-- `tessens`: Single Tessen instance or array of instances
+- `tescords`: Single tescord instance or array of instances
 - `outputPath`: Optional custom output path (defaults to `process.cwd()/localization.d.ts`)
 
 **Returns:** Configuration object
@@ -165,7 +165,7 @@ Creates a configuration object for type generation.
 Writes generated types to a file using the output path from the configuration.
 
 **Parameters:**
-- `config`: Configuration object (containing tessens and optional outputPath)
+- `config`: Configuration object (containing tescords and optional outputPath)
 
 ## Types
 
@@ -173,7 +173,7 @@ Writes generated types to a file using the output path from the configuration.
 
 ```typescript
 interface TypeGenerationConfig {
-  tessens: Tessen[];
+  tescords: tescord[];
   outputPath?: string;
 }
 ```
@@ -189,7 +189,7 @@ interface ExtractedParameter {
 
 ## Contributing
 
-This module is part of the Tessen ecosystem and is currently in development. It is not yet ready for production use.
+This module is part of the tescord ecosystem and is currently in development. It is not yet ready for production use.
 
 ## License
 

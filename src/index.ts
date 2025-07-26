@@ -1,4 +1,4 @@
-import { Tessen, ContentValue, PlainLocaleData } from 'tessen';
+import { tescord, ContentValue, PlainLocaleData } from 'tescord';
 
 // Interface for parameter extraction from localized strings
 interface ExtractedParameter {
@@ -8,13 +8,13 @@ interface ExtractedParameter {
 
 // Configuration for type generation
 interface TypeGenerationConfig {
-  tessens: Tessen[];
+  tescords: tescord[];
   outputPath?: string;
 }
 
 // Configuration for component type generation
 interface ComponentTypeGenerationConfig {
-  tessens: Tessen[];
+  tescords: tescord[];
   outputPath?: string;
 }
 
@@ -119,14 +119,14 @@ function deepMerge(target: PlainLocaleData, source: PlainLocaleData): void {
 }
 
 /**
- * Extracts locale data from Tessen's cache and converts it to plain data structure
- * This is the key function that processes the actual Tessen cache data
+ * Extracts locale data from tescord's cache and converts it to plain data structure
+ * This is the key function that processes the actual tescord cache data
  */
-function extractPlainLocaleDataFromTessen(tessen: Tessen): PlainLocaleData {
+function extractPlainLocaleDataFromtescord(tescord: tescord): PlainLocaleData {
   const mergedData: PlainLocaleData = {};
 
-  // Process all cached locales from Tessen.cache.locales
-  for (const [localeId, cacheData] of tessen.cache.locales) {
+  // Process all cached locales from tescord.cache.locales
+  for (const [localeId, cacheData] of tescord.cache.locales) {
     const locale = cacheData.data;
     
     // Access the private 'contents' field which contains the raw template strings
@@ -212,16 +212,16 @@ function extractParametersFromFunction(func: Function): string {
 }
 
 /**
- * Generates TypeScript declaration for a single Tessen instance
+ * Generates TypeScript declaration for a single tescord instance
  */
-function generateTessenDeclaration(tessen: Tessen, clientIndex?: number): string {
-  const localeData = extractPlainLocaleDataFromTessen(tessen);
+function generatetescordDeclaration(tescord: tescord, clientIndex?: number): string {
+  const localeData = extractPlainLocaleDataFromtescord(tescord);
   const interfaceContent = processLocaleData(localeData);
   
   const clientSuffix = clientIndex !== undefined ? ` // Client ${clientIndex + 1}` : '';
 
   return `declare global {${clientSuffix}
-  namespace Tessen {
+  namespace tescord {
     interface Localization {
 ${interfaceContent}
     }
@@ -245,13 +245,13 @@ const INTERACTION_TYPE_MAP: Record<string, string> = {
 };
 
 /**
- * Extracts component mappings from Tessen's interactions cache
+ * Extracts component mappings from tescord's interactions cache
  */
-function extractComponentMappingsFromTessen(tessen: Tessen): ComponentMapping {
+function extractComponentMappingsFromtescord(tescord: tescord): ComponentMapping {
   const componentMap: ComponentMapping = {};
 
-  // Process all cached interactions from Tessen.cache.interactions
-  for (const [interactionId, cacheData] of tessen.cache.interactions) {
+  // Process all cached interactions from tescord.cache.interactions
+  for (const [interactionId, cacheData] of tescord.cache.interactions) {
     const interaction = cacheData.data;
     
     // Check if the interaction has a type that maps to a component
@@ -297,7 +297,7 @@ function generateComponentDeclaration(componentMap: ComponentMapping, clientInde
     .join('\n');
 
   return `declare global {${clientSuffix}
-  namespace Tessen {
+  namespace tescord {
     interface ComponentMap {
 ${interfaceContent}
     }
@@ -306,14 +306,14 @@ ${interfaceContent}
 }
 
 /**
- * Main function to generate TypeScript declarations from multiple Tessen instances
+ * Main function to generate TypeScript declarations from multiple tescord instances
  */
 export function generateLocalizationTypes(config: TypeGenerationConfig): string {
   const declarations: string[] = [];
 
-  for (let i = 0; i < config.tessens.length; i++) {
-    const tessen = config.tessens[i];
-    const declaration = generateTessenDeclaration(tessen, config.tessens.length > 1 ? i : undefined);
+  for (let i = 0; i < config.tescords.length; i++) {
+    const tescord = config.tescords[i];
+    const declaration = generatetescordDeclaration(tescord, config.tescords.length > 1 ? i : undefined);
     declarations.push(declaration);
   }
 
@@ -321,15 +321,15 @@ export function generateLocalizationTypes(config: TypeGenerationConfig): string 
 }
 
 /**
- * Main function to generate TypeScript component declarations from multiple Tessen instances
+ * Main function to generate TypeScript component declarations from multiple tescord instances
  */
 export function generateComponentTypes(config: ComponentTypeGenerationConfig): string {
   const declarations: string[] = [];
 
-  for (let i = 0; i < config.tessens.length; i++) {
-    const tessen = config.tessens[i];
-    const componentMap = extractComponentMappingsFromTessen(tessen);
-    const declaration = generateComponentDeclaration(componentMap, config.tessens.length > 1 ? i : undefined);
+  for (let i = 0; i < config.tescords.length; i++) {
+    const tescord = config.tescords[i];
+    const componentMap = extractComponentMappingsFromtescord(tescord);
+    const declaration = generateComponentDeclaration(componentMap, config.tescords.length > 1 ? i : undefined);
     
     if (declaration) {
       declarations.push(declaration);
@@ -348,11 +348,11 @@ export function generateComponentTypes(config: ComponentTypeGenerationConfig): s
  * Utility function to create a component type generation configuration
  */
 export function createComponentTypeGenerationConfig(
-  tessens: Tessen | Tessen[], 
+  tescords: tescord | tescord[], 
   outputPath?: string
 ): ComponentTypeGenerationConfig {
   return {
-    tessens: Array.isArray(tessens) ? tessens : [tessens],
+    tescords: Array.isArray(tescords) ? tescords : [tescords],
     outputPath
   };
 }
@@ -376,11 +376,11 @@ export async function writeComponentTypes(config: ComponentTypeGenerationConfig)
  * Utility function to create a type generation configuration
  */
 export function createTypeGenerationConfig(
-  tessens: Tessen | Tessen[], 
+  tescords: tescord | tescord[], 
   outputPath?: string
 ): TypeGenerationConfig {
   return {
-    tessens: Array.isArray(tessens) ? tessens : [tessens],
+    tescords: Array.isArray(tescords) ? tescords : [tescords],
     outputPath
   };
 }

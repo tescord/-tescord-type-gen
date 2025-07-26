@@ -8,9 +8,9 @@ importers:
 
   .:
     dependencies:
-      tessen:
-        specifier: 0.0.2-dev.10
-        version: 0.0.2-dev.10
+      tescord:
+        specifier: 0.0.0
+        version: 0.0.0
     devDependencies:
       '@types/node':
         specifier: ^22.15.2
@@ -105,8 +105,8 @@ packages:
   stuffs@0.1.43:
     resolution: {integrity: sha512-oZAsoeQijWdeh5+PeQq7EF0BuG33WxEF2tf9S9hwJRIZWsihBo2GkDvXfi/T0Ap5VQPZDRmkzpcBMrumcD8YkQ==}
 
-  tessen@0.0.2-dev.10:
-    resolution: {integrity: sha512-HSQV43l8h/pWKZQLPgq/6jVNrPjdLPEXohgBKU4jeS1O+7ABB2fWxbKVE1PuobJI+kMcNSdQNN4eVbCtIMhkIg==}
+  tescord@0.0.0:
+    resolution: {integrity: sha512-4fn+252LuBFfgkLN8WMD/dZbHA9fatrRJRbTNFGaj8Wcs3tV8JGFR/THAfbzqg23u/er3nO4G9QDPbFh0n8ASw==}
 
   ts-mixer@6.0.4:
     resolution: {integrity: sha512-ufKpbmrugz5Aou4wcr5Wc1UUFWOLhq+Fm6qa6P0w0K5Qw2yhaUoiWszhCVuNQyNwrlGiscHOmqYoAox1PtvgjA==}
@@ -248,7 +248,7 @@ snapshots:
 
   stuffs@0.1.43: {}
 
-  tessen@0.0.2-dev.10:
+  tescord@0.0.0:
     dependencies:
       '@discordjs/rest': 2.5.1
       color-support: 1.1.3
