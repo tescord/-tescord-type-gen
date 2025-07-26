@@ -221,7 +221,7 @@ function generatetescordDeclaration(tescord: Tescord, clientIndex?: number): str
   const clientSuffix = clientIndex !== undefined ? ` // Client ${clientIndex + 1}` : '';
 
   return `declare global {${clientSuffix}
-  namespace tescord {
+  namespace Tescord {
     interface Localization {
 ${interfaceContent}
     }
@@ -297,7 +297,7 @@ function generateComponentDeclaration(componentMap: ComponentMapping, clientInde
     .join('\n');
 
   return `declare global {${clientSuffix}
-  namespace tescord {
+  namespace Tescord {
     interface ComponentMap {
 ${interfaceContent}
     }
