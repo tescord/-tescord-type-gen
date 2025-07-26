@@ -1,4 +1,4 @@
-import { tescord, ContentValue, PlainLocaleData } from 'tescord';
+import { Tescord, ContentValue, PlainLocaleData } from 'tescord';
 
 // Interface for parameter extraction from localized strings
 interface ExtractedParameter {
